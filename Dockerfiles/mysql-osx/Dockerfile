@@ -1,14 +1,14 @@
 FROM mysql
-MAINTAINER Ian Edington "IanEdington@gmail.com"
+MAINTAINER Remon Lam <remon.lam@virtualclouds.info>
 
-ENV MYSQL_ROOT_PASSWORD password
-ENV MYSQL_PASSWORD password
-ENV MYSQL_DATABASE wordpress
+#ENV MYSQL_ROOT_PASSWORD password
+#ENV MYSQL_PASSWORD password
+#ENV MYSQL_DATABASE wordpress
 
 # this need to stay the same for script to work
 ENV MYSQL_USER mysql
 
-COPY ./localdb-run.sh /
-RUN chmod 755 /localdb-run.sh
+COPY ./osx-start-db.sh /
+RUN chmod 755 /osx-start-db.sh
 
-ENTRYPOINT ["/localdb-run.sh"]
+ENTRYPOINT ["/osx-start-db.sh"]
