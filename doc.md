@@ -1,6 +1,6 @@
 # Running MySQL, WP and HAProxy in containers
 ### VARIABLES
-export ROOT_PASSWORD=P@ssw0rd123
+export ROOT_PASSWORD=P@ssw0rd123 <br>
 export WORDPRESS_PASSWORD=P@ssw0rd123
 
 
