@@ -1,41 +1,16 @@
 #!/bin/bash
+set -e
 
-##
-# Detect the ownership of the webroot
-# and run apache as that user.
-#
-main() {
-    local owner group owner_id group_id tmp
-    read owner group owner_id group_id < <(stat -c '%U %G %u %g' .)
-    if [[ $owner = UNKNOWN ]]; then
-        owner=$(randname)
-        if [[ $group = UNKNOWN ]]; then
-            group=$owner
-            addgroup --system --gid "$group_id" "$group"
-        fi
-        adduser --system --uid=$owner_id --gid=$group_id "$owner"
-    fi
-    tmp=/tmp/$RANDOM
-    {
-        echo "User $owner"
-        echo "Group $group"
-        grep -v '^User' /etc/apache2/apache2.conf |
-            grep -v '^Group'
-    } >> "$tmp" &&
-    cat "$tmp" > /etc/apache2/apache2.conf &&
-    rm "$tmp"
-    # Not volumes, so need to be chowned
-    chown -R "$owner:$group" /var/{lock,log,run}/apache*
-    exec /usr/sbin/apache2ctl "$@"
-}
+# Script to workaround docker-machine/boot2docker OSX host volume issues: https://github.com/docker-library/mysql/issues/99
 
-##
-# Generate a random sixteen-character
-# string of alphabetical characters
-randname() {
-    local -x LC_ALL=C
-    tr -dc '[:lower:]' < /dev/urandom |
-        dd count=1 bs=16 2>/dev/null
-}
-
-main "$@"
+echo '* Working around permission errors locally by making sure that "mysql" uses the same uid and gid as the host volume'
+TARGET_UID=$(stat -c "%u" /var/www/html)
+echo '-- Setting www-data user to use uid '$TARGET_UID
+usermod -o -u $TARGET_UID www-data || true
+TARGET_GID=$(stat -c "%g" /var/www/html)
+echo '-- Setting www-data group to use gid '$TARGET_GID
+groupmod -o -g $TARGET_GID www-data || true
+echo
+echo '* Starting MySQL'
+chown -R www-data:root /var/www/html/
+#/entrypoint.sh
