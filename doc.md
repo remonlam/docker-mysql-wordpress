@@ -32,4 +32,4 @@ docker run --detach \ <br>
   --volume /Users/remonlam/docker/mounts/testing1/mysql:/var/lib/mysql \ <br>
   mysql
 
-###### Check if you can see any files in "/Users/$USER/docker/mounts/mysql/"
+##### Check if you can see any files in "/Users/$USER/docker/mounts/mysql/"
