@@ -1,5 +1,5 @@
 ROM ubuntu:trusty
-MAINTAINER Feng Honglin <hfeng@tutum.co>
+MAINTAINER Remon Lam <remon.lam@virtualclouds.info>
 
 # Install pip and haproxy
 RUN echo 'deb http://ppa.launchpad.net/vbernat/haproxy-1.5/ubuntu trusty main' >> /etc/apt/sources.list && \
