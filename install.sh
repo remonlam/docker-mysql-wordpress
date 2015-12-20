@@ -41,13 +41,13 @@ docker run --detach \
 ## WORDPRESS
 # Run wordpress container with mounts
 docker run --detach \
-  --publish 80:80 \
-  --name wordpress \
+  --publish 8080:80 \
+  --name wordpress-testing \
   --volume /Users/remonlam/docker/mounts/testing1/wwwdata:/var/www/html \
   --link mysql:mysql \
   --env WORDPRESS_DB_USER=wordpress \
   --env WORDPRESS_DB_PASSWORD=$WORDPRESS_PASSWORD \
-  wordpress
+  wp-test3
 
 
   docker run --detach \
