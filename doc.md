@@ -10,7 +10,7 @@ WORDPRESS: /Users/remonlam/docker/mounts/testing1/wwwdata:/var/www/html
 #### CONTAINERS
 MySQL: 1 container named "mysql"<br>
 Wordpress: 3 containers named "wp-n1", "wp-n2" and "wp-n3" running on port 8081, 8082 and 8083<br>
-HAProxy: 1 container named "haproxy" running on port 80 (external facing)
+HAProxy: 1 container named "haproxy" running on port 80 (external facing)<br>
 
 
 ## Setup the environment
