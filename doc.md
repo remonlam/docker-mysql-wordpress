@@ -26,11 +26,11 @@ mkdir -p /Users/$USER/docker/mounts/mysql/<br>
 mkdir -p /Users/$USER/docker/mounts/wp/
 
 ### Create the first (MySQL) container
-docker run --detach \
-  --name mysql \
-  --env MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD \
-  --env MYSQL_USER=wordpress \
-  --env MYSQL_PASSWORD=$WORDPRESS_PASSWORD \
-  --env MYSQL_DATABASE=wordpress \
-  --volume /Users/remonlam/docker/mounts/testing1/mysql:/var/lib/mysql \
+docker run --detach \ <br>
+  --name mysql \ <br>
+  --env MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD \ <br>
+  --env MYSQL_USER=wordpress \ <br>
+  --env MYSQL_PASSWORD=$WORDPRESS_PASSWORD \ <br>
+  --env MYSQL_DATABASE=wordpress \ <br>
+  --volume /Users/remonlam/docker/mounts/testing1/mysql:/var/lib/mysql \ <br>
   mysql
