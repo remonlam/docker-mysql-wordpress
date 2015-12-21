@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 set -e
 
 # if command starts with an option, prepend mysqld
