@@ -1,0 +1,57 @@
+docker run --detach \
+  --name mysql \
+  --env MYSQL_ROOT_PASSWORD="4b44fae474f7eb109df4b809af2292a188341467" \
+  --env MYSQL_USER=wordpress \
+  --env MYSQL_PASSWORD="4b44fae474f7eb109df4b809af2292a188341467" \
+  --env MYSQL_DATABASE=wordpress \
+  --volume /storage/mysql:/var/lib/mysql \
+  remonlam/docker-mysql:osx
+
+
+docker run --detach --name mysql \
+  --env MYSQL_USER=wordpress \
+  --env MYSQL_PASSWORD="4b44fae474f7eb109df4b809af2292a188341467" \
+  --env MYSQL_DATABASE=wordpress \
+  --volume /storage/mysql:/var/lib/mysql \
+  remonlam/docker-mysql:osx \
+
+## Webnodes
+docker run --detach \
+  --publish 8080:80 \
+  --name web0 \
+  --volume /storage/www-data:/var/www/html \
+  --link mysql:mysql \
+  --env WORDPRESS_DB_USER=wordpress \
+  --env WORDPRESS_DB_PASSWORD="4b44fae474f7eb109df4b809af2292a188341467" \
+  remonlam/docker-wordpress:osx
+
+docker run --detach \
+  --publish 8081:80 \
+  --name web1 \
+  --volume /storage/www-data:/var/www/html \
+  --link mysql:mysql \
+  --env WORDPRESS_DB_USER=wordpress \
+  --env WORDPRESS_DB_PASSWORD="4b44fae474f7eb109df4b809af2292a188341467" \
+  remonlam/docker-wordpress:osx
+
+docker run --detach \
+  --publish 8082:80 \
+  --name web2 \
+  --volume /storage/www-data:/var/www/html \
+  --link mysql:mysql \
+  --env WORDPRESS_DB_USER=wordpress \
+  --env WORDPRESS_DB_PASSWORD="4b44fae474f7eb109df4b809af2292a188341467" \
+  remonlam/docker-wordpress:osx
+
+## HAPROXY
+docker run --detach \
+  --link web0 \
+  --link web1 \
+  --link web2 \
+  --name haproxy \
+  --env STATS_AUTH="admin:haproxyp@ss" \
+  --env STATS_PORT=1936 \
+  --publish 80:80 \
+  --publish 1936:1936 \
+ tutum/haproxy
+  
